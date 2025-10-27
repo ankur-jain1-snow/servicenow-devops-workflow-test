@@ -141,3 +141,15 @@ jobs:
           echo "- Invalid tag format" >> $GITHUB_STEP_SUMMARY
           echo "- Build failures" >> $GITHUB_STEP_SUMMARY
           echo "- Permission issues" >> $GITHUB_STEP_SUMMARY
+          ls -la /home/runner/.npm/_logs/
+    
+          echo "Finding the latest log file..."
+          LATEST_LOG=$(ls -t /home/runner/.npm/_logs | head -n 1)
+          
+          if [ -z "$LATEST_LOG" ]; then
+            echo "No log file found."
+          else
+            echo "Displaying latest npm debug log: $LATEST_LOG"
+            # Use Node.js to read and print the file to avoid shell issues
+            node -e "console.log(require('fs').readFileSync('/home/runner/.npm/_logs/' + process.argv[1], 'utf-8'))" "$LATEST_LOG"
+          fi
