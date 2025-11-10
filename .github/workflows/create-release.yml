@@ -67,6 +67,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
+
+      - name: Install npm1
+        run: npm install
+
+      - name: Install npm2
+        run: npm install
       
       - name: Install dependencies
         run: npm ci
