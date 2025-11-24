@@ -70,8 +70,8 @@ jobs:
       
       - name: Clean and install dependencies
         run: |
-          # echo "Cleaning any existing installation..."
-          # rm -rf node_modules package-lock.json
+          echo "Cleaning any existing installation..."
+          rm -rf node_modules package-lock.json
           
           echo "Installing dependencies with npm install..."
           npm install --prefer-offline --no-audit
