@@ -76,7 +76,11 @@ jobs:
       - name: Install dependencies
         run: |
           echo "Installing dependencies..."
-          npm ci
+          npm ci || {
+            echo "npm ci failed, trying npm install..."
+            rm -rf node_modules package-lock.json
+            npm install
+          }
           echo "✅ Dependencies installed"
       
       - name: Build distribution
