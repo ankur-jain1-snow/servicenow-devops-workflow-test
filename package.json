@@ -5,7 +5,7 @@
     "description": "A Github Action to pause/resume workflow run for a ServiceNow change approval.",
     "private": false,
     "scripts": {
-        "build": "ncc build src/main.js"
+        "build": "npx ncc build src/main.js"
     },
     "repository": {
         "type": "git",
