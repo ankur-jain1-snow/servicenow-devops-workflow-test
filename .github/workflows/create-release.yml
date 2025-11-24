@@ -68,21 +68,24 @@ jobs:
         with:
           node-version: '20'
       
-      - name: Install dependencies
+      - name: Clean and install dependencies
         run: |
-          echo "Attempting npm ci..."
-          npm ci || {
-            echo "npm ci failed, trying npm install..."
-            rm -rf node_modules package-lock.json
-            npm install
-          }
-          echo "Verifying node_modules..."
-          ls -la node_modules/.bin/ || echo "node_modules/.bin/ not found"
+          echo "Cleaning any existing installation..."
+          rm -rf node_modules package-lock.json
+          
+          echo "Installing dependencies with npm install..."
+          npm install --prefer-offline --no-audit
+          
+          echo "Verifying installation..."
           if [ -f "node_modules/.bin/ncc" ]; then
             echo "✅ ncc binary found"
+            ls -la node_modules/.bin/ncc
           else
-            echo "❌ ncc binary not found, listing node_modules:"
-            ls -la node_modules/ || echo "node_modules not found"
+            echo "❌ ncc binary not found"
+            echo "Contents of node_modules/.bin/:"
+            ls -la node_modules/.bin/ || echo "node_modules/.bin/ directory does not exist"
+            echo "Contents of @vercel/ncc:"
+            ls -la node_modules/@vercel/ || echo "@vercel directory not found"
             exit 1
           fi
       
