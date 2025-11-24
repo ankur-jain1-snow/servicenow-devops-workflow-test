@@ -76,6 +76,15 @@ jobs:
             rm -rf node_modules package-lock.json
             npm install
           }
+          echo "Verifying node_modules..."
+          ls -la node_modules/.bin/ || echo "node_modules/.bin/ not found"
+          if [ -f "node_modules/.bin/ncc" ]; then
+            echo "✅ ncc binary found"
+          else
+            echo "❌ ncc binary not found, listing node_modules:"
+            ls -la node_modules/ || echo "node_modules not found"
+            exit 1
+          fi
       
       - name: Build distribution
         run: npm run build
