@@ -64,9 +64,9 @@ jobs:
           echo "Confirmed on main branch"
       
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '18'
       
       - name: Clean and install dependencies
         run: |
